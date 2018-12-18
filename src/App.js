@@ -8,16 +8,29 @@ import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
+import Pixel from './Pixel.js'
 
 class App extends Component {
   constructor () {
     super()
 
     this.state = {
+      currentColor: 'red',
       user: null,
       flashMessage: '',
-      flashType: null
+      flashType: null,
+      canvas: ''
     }
+  }
+
+  componentDidMount () {
+    const canvas = []
+    for (let i = 0; i <= 1979; i++) {
+      canvas.push('blue')
+    }
+    this.setState({
+      canvas: canvas
+    })
   }
 
   setUser = user => this.setState({ user })
@@ -33,14 +46,32 @@ class App extends Component {
     }), 2000)
   }
 
+  handleClick (position) {
+    console.log(this.state)
+    const shallowCanvas = this.state.canvas
+    shallowCanvas[position] = this.state.currentColor
+    this.setState({
+      canvas: shallowCanvas
+    })
+  }
+
   render () {
     const { flashMessage, flashType, user } = this.state
-
+    const canvas = []
+    for (let i = 0; i <= 1979; i++) {
+      canvas.push(
+        <Pixel
+          key={i}
+          position={i}
+          handleClick={(i) => this.handleClick(i)}
+          color={this.state.canvas[i]}
+        />)
+    }
     return (
       <React.Fragment>
         <Header user={user} />
         {flashMessage && <h3 className={flashType}>{flashMessage}</h3>}
-        
+
         <main className="container">
           <Route path='/sign-up' render={() => (
             <SignUp flash={this.flash} setUser={this.setUser} />
@@ -54,6 +85,9 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword flash={this.flash} user={user} />
           )} />
+          <div className='canvas'>
+            {canvas}
+          </div>
         </main>
       </React.Fragment>
     )
