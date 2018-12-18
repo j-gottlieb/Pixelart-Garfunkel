@@ -47,15 +47,21 @@ $charcoal: #ccc;
   }
 }
 
+.artRoom {
+  display: flex;
+  align-content: start;
+}
+
 .canvas {
-  width: 900px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(60, 1fr);
+  grid-template-rows: repeat(100, 1fr);
+  width: 902px;
   height: 1500px;
+  margin: 0;
+  padding: 0;
 }
 
 .pixel {
-  border: 1px solid grey;
-  height: 15px;
-  width: 15px;
-  display: inline-block;
-  margin: 0;
 }

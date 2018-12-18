@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route, Link } from 'react-router-dom'
+import { SketchPicker } from 'react-color'
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
@@ -15,7 +16,7 @@ class App extends Component {
     super()
 
     this.state = {
-      currentColor: 'red',
+      currentColor: '#f0f0f5',
       user: null,
       flashMessage: '',
       flashType: null,
@@ -26,7 +27,7 @@ class App extends Component {
   componentDidMount () {
     const canvas = []
     for (let i = 0; i <= 1979; i++) {
-      canvas.push('blue')
+      canvas.push(this.state.currentColor)
     }
     this.setState({
       canvas: canvas
@@ -55,10 +56,14 @@ class App extends Component {
     })
   }
 
+  handleChangeComplete = (color) => {
+    this.setState({ currentColor: color.hex })
+  }
+
   render () {
     const { flashMessage, flashType, user } = this.state
     const canvas = []
-    for (let i = 0; i <= 1979; i++) {
+    for (let i = 0; i <= 2969; i++) {
       canvas.push(
         <Pixel
           key={i}
@@ -85,8 +90,15 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword flash={this.flash} user={user} />
           )} />
-          <div className='canvas'>
-            {canvas}
+          <div className='artRoom'>
+            <div className='colorPicker'>
+              <SketchPicker
+                color={ this.state.currentColor }
+                onChangeComplete={ this.handleChangeComplete }/>
+            </div>
+            <div className='canvas'>
+              {canvas}
+            </div>
           </div>
         </main>
       </React.Fragment>
