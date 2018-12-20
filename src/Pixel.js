@@ -5,7 +5,7 @@ const Pixel = (props) => {
     <div
       className='pixel'
       style={{backgroundColor: props.color}}
-      onClick={() => props.handleClick(props.position)}></div>
+      onMouseOver={() => props.handleDrawing(props.position)}></div>
   )
 }
 

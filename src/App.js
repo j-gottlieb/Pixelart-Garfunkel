@@ -20,7 +20,8 @@ class App extends Component {
       user: null,
       flashMessage: '',
       flashType: null,
-      canvas: ''
+      canvas: '',
+      drawActive: false
     }
   }
 
@@ -47,17 +48,23 @@ class App extends Component {
     }), 2000)
   }
 
-  handleClick (position) {
-    console.log(this.state)
-    const shallowCanvas = this.state.canvas
-    shallowCanvas[position] = this.state.currentColor
-    this.setState({
-      canvas: shallowCanvas
-    })
+  handleDrawing (position) {
+    if (this.state.drawActive) {
+      const shallowCanvas = this.state.canvas
+      shallowCanvas[position] = this.state.currentColor
+      this.setState({
+        canvas: shallowCanvas
+      })
+    }
   }
 
   handleChangeComplete = (color) => {
     this.setState({ currentColor: color.hex })
+  }
+
+  handleClick () {
+    const toggle = !this.state.drawActive
+    this.setState({ drawActive: toggle })
   }
 
   render () {
@@ -68,7 +75,7 @@ class App extends Component {
         <Pixel
           key={i}
           position={i}
-          handleClick={(i) => this.handleClick(i)}
+          handleDrawing={(i) => this.handleDrawing(i)}
           color={this.state.canvas[i]}
         />)
     }
@@ -96,7 +103,15 @@ class App extends Component {
                 color={ this.state.currentColor }
                 onChangeComplete={ this.handleChangeComplete }/>
             </div>
-            <div className='canvas'>
+            <div className='instructions'>
+              <h4>Instructions:</h4>
+              <ul>
+                <li>Select color</li>
+                <li>Click inside the canvas to start drawing.</li>
+                <li>Click again to stop drawing.</li>
+              </ul>
+            </div>
+            <div className='canvas' onClick={() => this.handleClick()}>
               {canvas}
             </div>
           </div>
