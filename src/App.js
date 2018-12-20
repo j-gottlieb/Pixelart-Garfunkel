@@ -27,7 +27,7 @@ class App extends Component {
 
   componentDidMount () {
     const canvas = []
-    for (let i = 0; i <= 1979; i++) {
+    for (let i = 0; i <= 2279; i++) {
       canvas.push(this.state.currentColor)
     }
     this.setState({
@@ -84,7 +84,7 @@ class App extends Component {
         <Header user={user} />
         {flashMessage && <h3 className={flashType}>{flashMessage}</h3>}
 
-        <main className="container">
+        <main >
           <Route path='/sign-up' render={() => (
             <SignUp flash={this.flash} setUser={this.setUser} />
           )} />
@@ -98,18 +98,20 @@ class App extends Component {
             <ChangePassword flash={this.flash} user={user} />
           )} />
           <div className='artRoom'>
-            <div className='colorPicker'>
-              <SketchPicker
-                color={ this.state.currentColor }
-                onChangeComplete={ this.handleChangeComplete }/>
-            </div>
-            <div className='instructions'>
-              <h4>Instructions:</h4>
-              <ul>
-                <li>Select color</li>
-                <li>Click inside the canvas to start drawing.</li>
-                <li>Click again to stop drawing.</li>
-              </ul>
+            <div className='left-side'>
+              <div className='colorPicker'>
+                <SketchPicker
+                  color={ this.state.currentColor }
+                  onChangeComplete={ this.handleChangeComplete }/>
+              </div>
+              <div className='instructions'>
+                <h4>Instructions:</h4>
+                <ul>
+                  <li>Select color</li>
+                  <li>Click inside the canvas to start drawing.</li>
+                  <li>Click again to stop drawing.</li>
+                </ul>
+              </div>
             </div>
             <div className='canvas' onClick={() => this.handleClick()}>
               {canvas}
