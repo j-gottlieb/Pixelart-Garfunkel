@@ -56,6 +56,15 @@ $charcoal: #ccc;
   flex-direction: column;
   align-content: start;
   width: 300px;
+  margin: 15px;
+  border: 2px solid purple;
+  border-radius: 8px;
+  padding: 10px;
+  height: 500px;
+}
+
+.instructions {
+  margin-top: 20px;
 }
 
 .canvas {
@@ -65,7 +74,4 @@ $charcoal: #ccc;
   width: 902px;
   height: 1500px;
   margin: 15px;
-}
-
-.pixel {
 }
